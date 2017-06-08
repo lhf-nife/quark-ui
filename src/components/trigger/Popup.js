@@ -9,6 +9,7 @@ import { allowMultiple } from '../../constants';
 import renderTo from '../../enhancer/render-to';
 import styles from './Trigger.css';
 
+
 @renderTo()
 @CSSModules(styles, { allowMultiple })
 export default class Popup extends PureComponent {
