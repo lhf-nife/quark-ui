@@ -8,13 +8,12 @@ import Trigger from 'quark-ui/trigger';
 import CSSModules from 'react-css-modules';
 import { allowMultiple } from '../../constants';
 import styles from './Tooltip.css';
+import PLACEMENT_ENUM from './placements.js';
 
 @CSSModules(styles, { allowMultiple })
 class Tooltip extends PureComponent {
 
   static displayName = 'Tooltip';
-
-  
 
   static defaultProps = {
     content: '',
@@ -57,32 +56,6 @@ class Tooltip extends PureComponent {
 
   render() {
     const { action, placement, content, toolElement} = this.props;
-    const PLACEMENT_ENUM = {
-                            left: {
-                              points: ['cr', 'cl'],
-                            },
-                            right: {
-                              points: ['cl', 'cr'],
-                            },
-                            top: {
-                              points: ['bc', 'tc'],
-                            },
-                            bottom: {
-                              points: ['tc', 'bc'],
-                            },
-                            topLeft: {
-                              points: ['bl', 'tl'],
-                            },
-                            topRight: {
-                              points: ['br', 'tr'],
-                            },
-                            bottomRight: {
-                              points: ['tr', 'br'],
-                            },
-                            bottomLeft: {
-                              points: ['tl', 'bl'],
-                            }
-                          };
       
     return (
       
