@@ -52,6 +52,7 @@ const common = {
             plugins: [
               'transform-decorators-legacy',
             ],
+            babelrc : false
           },
         },
       },
@@ -366,6 +367,8 @@ if (TARGET === 'theme') {
               },
             ]
           ),
+          loader: `css?${ CSS_MODULES_LOADER }`,
+          include: path.join(__dirname, '/css/modules'),
         },
       ],
     },

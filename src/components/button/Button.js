@@ -2,11 +2,14 @@
  * Button Component
  * @author ryan.bian
  */
-import { PureComponent } from 'react';
+import React,{ PureComponent } from 'react';
+import CSSModules from 'react-css-modules';
+import { allowMultiple } from '../../constants';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './Button.css';
 
+@CSSModules(styles, { allowMultiple })
 class Button extends PureComponent {
 
   static displayName = 'Button'
@@ -32,6 +35,7 @@ class Button extends PureComponent {
   }
 
   render() {
+    
     const { children, type, size, disabled, ...otherProps } = this.props;
     const btnProps = {
       ...otherProps,
@@ -39,9 +43,14 @@ class Button extends PureComponent {
         styles[`button--${disabled ? 'disabled' : type}`],
         styles[`button--${size}`],
       ),
+      
     };
+    const aa = classnames(
+        styles[`button--${disabled ? 'disabled' : type}`],
+        styles[`button--${size}`],
+      );
     return (
-      <button {...btnProps}>{children}</button>
+      <button {...otherProps} className={aa}>{children}</button>
     );
   }
 }

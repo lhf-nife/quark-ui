@@ -2,7 +2,7 @@
  * Checkbox Component
  * @author grootfish
  */
-import { PureComponent } from 'react';
+import React,{ PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 import shallowEqual from 'shallowequal';
@@ -117,7 +117,7 @@ class Checkbox extends PureComponent {
       [`${prefixCls}--inner`]: true,
     });
     return (
-      <label styleName={wrapperString}>
+      <label className={wrapperString}>
         <span styleName={classString}>
           <input
             name={name}
