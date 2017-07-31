@@ -46,11 +46,12 @@ class Button extends PureComponent {
       
     };
     const aa = classnames(
-        styles[`button--${disabled ? 'disabled' : type}`],
-        styles[`button--${size}`],
+        [`button--${disabled ? 'disabled' : type}`],
+        [`button--${size}`],
       );
+   
     return (
-      <button {...otherProps} className={aa}>{children}</button>
+      <button {...otherProps} styleName={aa}>{children}</button>
     );
   }
 }

@@ -4,19 +4,19 @@ import {expect,should} from 'chai';
 import Button from '../src/components/button/Button';
 import Checkbox from '../src/components/checkbox/Checkbox';
 import CheckboxGroup from '../src/components/checkbox/CheckboxGroup';
-import styles from '../src/components/checkbox/Checkbox.css';
-
+// import styles from '../src/components/checkbox/Checkbox.css';
+import styles from '../src/components/button/Button.css';
+// console.log(styles,9999);
 describe('test1111111',()=>{
   it('button0-----------',()=>{
     const data = { type: 'primary', size: 'normal', disabled: true };
-    // console.log(Button,222222222222);
     let btn = shallow(<Button {...data}>aaa</Button>);
-    console.log(btn,888);
+    // console.log(btn,888);
     // expect(btn.find('.button--normal').length).to.equal(1);
-    // expect(btn.hasClass('button--normal')).to.equal(true);
+    expect(btn.hasClass(styles['button--normal'])).to.equal(true);
     // expect(btn.node.props.className.contains('button--normal')).to.equal(true);
     // expect(btn.is('.button--normal')).to.equal(true);
-    expect(btn.text()).to.equal('aaa');
+    // expect(btn.text()).to.equal('aaa');
     // expect(btn.hasClass('Button__button--normal___rZQNI')).to.equal(true);
   });
   it('checkbox-------------',()=>{
