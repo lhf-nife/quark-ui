@@ -1,97 +1,120 @@
-var path = require('path');
+const path = require('path');
+// var webpackConfig  = require('./conf/webpack.conf.js');
 
 module.exports = function(config) {  
   config.set({
-    basePath: '',
-    frameworks: ['jasmine'],
+    basePath: __dirname,
+    frameworks: ['mocha', 'chai'],
     files: [
-      './test/**/*.js',
-      './test/*.js'
+      './test/karma/*.js'
     ],
 
     preprocessors: {
       // add webpack as preprocessor
-      // 'src/**/*.js': ['webpack', 'sourcemap'],
+      // 'src/**/*.js': ['babel','webpack', 'sourcemap'],
+      // 'test/karma/*.js':['babel', 'webpack'],
+      // 'test/*.test.js': ['babel','webpack','sourcemap']
+      'src/**/*.js': ['webpack', 'sourcemap'],
+      'test/karma/*.js':[ 'webpack'],
       'test/*.test.js': ['webpack','sourcemap']
     },
+
+    //  babelPreprocessor :{
+    //   options: {
+    //     presets: [ "es2015", "stage-0", "react"],
+    //     // plugins: ["transform-decorators-legacy","transform-runtime","css-modules-transform"]
+    //   }
+    // },
+
     // webpack file
     webpack: { 
-      entry : 'prepend',
+      entry : path.resolve(__dirname, './src'),
       devtool: 'inline-source-map', //just do inline source maps instead of the default
       module: {
         loaders: [
           {
             test: /\.js$/,
-            loader: 'babel-loader',
-            exclude: path.resolve(__dirname, 'node_modules'),
-            query: {
-              presets: ['react']
+            exclude : /node_modules/,
+            use :{
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  [
+                    'env',
+                    {
+                      modules: false,
+                    },
+                  ],
+                  'react',
+                  'stage-1',
+                ],
+                plugins: [
+                  'transform-decorators-legacy',
+                ],
+              }
             }
           },
           {
-            test: /\.json$/,
-            loader: 'json',
+            test: /\.svg$/,
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: [
+                    [
+                      'env',
+                      {
+                        modules: false,
+                      },
+                    ],
+                    'react',
+                    'stage-1',
+                  ],
+                },
+              },
+              {
+                loader: 'react-svg-loader',
+                options: {
+                  svgo: {
+                    plugins: [
+                      { cleanupIDs: false },
+                    ],
+                    floatPrecision: 3,
+                  },
+                },
+              },
+            ],
           },
+          {
+            test: /\.json$/,
+            loader: 'json-loader',
+          },
+          
         ]
       },
-      
       externals: {
-        'react/addons': 'react/addons',
-        'react/lib/ExecutionEnvironment': 'react/lib/ExecutionEnvironment',
-        'react/lib/ReactContext': 'react/lib/ReactContext'
+        cheerio: 'window',
+        'react/addons': true,
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true
       }
     },
-
-    babel :{
-        "presets": [ "es2015", "stage-0", "react"],
-
-       "plugins": ["transform-decorators-legacy","transform-runtime","css-modules-transform"],
-        "env": {
-          "build": {
-            "optional": ["optimisation", "minification"]
-          },
-          "test":{
-            "plugins":[[
-              "babel-plugin-webpack-loaders",{
-              "config":"./conf/webpack.conf.js",
-              "verbose":false
-            }]]
-          }
-        }
-      },
-
     webpackServer: {
       noInfo: true 
     },
 
     plugins: [
-      'webpack',
-      'babel-plugin-webpack-loaders',
-      'karma-webpack',
-      'karma-jasmine',
+      // 'karma-babel-preprocessor',
+      require('karma-webpack'),
+      // 'karma-jasmine',
+      'karma-mocha',
+      'karma-chai',
       'karma-sourcemap-loader',
       'karma-chrome-launcher',
     ],
 
 
-    babelPreprocessor: {
-      options: {
-        presets: ["es2015", "stage-0", "react"],
-        plugins: ["transform-decorators-legacy","transform-runtime","css-modules-transform"],
-        env: {
-          build: {
-            "optional": ["optimisation", "minification"]
-          },
-          test:{
-            plugins:[[
-              "babel-plugin-webpack-loaders",{
-              "config":"./conf/webpack.conf.js",
-              "verbose":false
-            }]]
-          }
-        }
-      }
-    },
+
     reporters: ['progress'],
     // port: 9002,
     logLevel: config.LOG_INFO,
