@@ -9,11 +9,17 @@
       "optional": ["optimisation", "minification"]
     },
     "test":{
-    	"plugins":[[
-    		"babel-plugin-webpack-loaders",{
-    		"config":"./conf/webpack.conf.js",
-    		"verbose":false
-    	}]]
+    	"plugins":[
+        
+        [
+      		"babel-plugin-webpack-loaders",
+          {
+      		"config":"./conf/webpack.conf.js",
+      		"verbose":false
+          },
+          "istanbul"
+        ]
+      ]
     }
   }
 }

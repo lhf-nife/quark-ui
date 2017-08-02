@@ -6,17 +6,21 @@ module.exports = function(config) {
     basePath: __dirname,
     frameworks: ['mocha', 'chai'],
     files: [
-      './test/karma/*.js'
+      // './test/karma/*.js',
+      './src/components/**/test/*.js'
     ],
-
+    exclude:['react'],
     preprocessors: {
       // add webpack as preprocessor
       // 'src/**/*.js': ['babel','webpack', 'sourcemap'],
       // 'test/karma/*.js':['babel', 'webpack'],
       // 'test/*.test.js': ['babel','webpack','sourcemap']
-      'src/**/*.js': ['webpack', 'sourcemap'],
-      'test/karma/*.js':[ 'webpack'],
+      
+      'src/**/!(test).js': [ 'coverage'],
+      'src/components/**/test/*.test.js' : ['webpack','sourcemap'],
+      'test/karma/*.js':[ 'webpack','sourcemap'],
       'test/*.test.js': ['webpack','sourcemap']
+      
     },
 
     //  babelPreprocessor :{
@@ -36,7 +40,7 @@ module.exports = function(config) {
             test: /\.js$/,
             exclude : /node_modules/,
             use :{
-              loader: 'babel-loader',
+              loader: 'babel-istanbul-loader',
               options: {
                 presets: [
                   [
@@ -106,16 +110,31 @@ module.exports = function(config) {
     plugins: [
       // 'karma-babel-preprocessor',
       require('karma-webpack'),
-      // 'karma-jasmine',
+      
       'karma-mocha',
       'karma-chai',
       'karma-sourcemap-loader',
       'karma-chrome-launcher',
+      'karma-coverage',
+      'karma-spec-reporter'
     ],
 
+    coverageReporter: {
+      dir: 'coverage',
+      reporters: [{
+        type: 'json',
+        subdir: '.',
+        file: 'coverage.json',
+      }, {
+        type: 'lcov',
+        subdir: '.'
+      }, {
+        type: 'text-summary'
+      }]
+    },
 
 
-    reporters: ['progress'],
+    reporters: ['progress','spec','coverage'],
     // port: 9002,
     logLevel: config.LOG_INFO,
     browsers: ['Chrome'
