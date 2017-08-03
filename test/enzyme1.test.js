@@ -7,7 +7,7 @@ import CheckboxGroup from '../src/components/checkbox/CheckboxGroup';
 // import styles from '../src/components/checkbox/Checkbox.css';
 import styles from '../src/components/button/Button.css';
 // console.log(styles,9999);
-describe('test1111111',()=>{
+describe('test22222222222',()=>{
   it('button0-----------',()=>{
     const data = { type: 'primary', size: 'normal', disabled: true };
     let btn = shallow(<Button {...data}>aaa</Button>);

@@ -16,7 +16,7 @@ module.exports = function(config) {
       // 'test/karma/*.js':['babel', 'webpack'],
       // 'test/*.test.js': ['babel','webpack','sourcemap']
       
-      'src/**/!(test).js': [ 'coverage'],
+      // 'src/**/*.js': [ 'webpack','sourcemap','coverage'],
       'src/components/**/test/*.test.js' : ['webpack','sourcemap'],
       'test/karma/*.js':[ 'webpack','sourcemap'],
       'test/*.test.js': ['webpack','sourcemap']

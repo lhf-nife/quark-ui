@@ -16,10 +16,8 @@
     "lint": "eslint --color -f table ./src",
     "lint-c": "eslint --color -f table",
     "build": "node ./conf/publish.build.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/setup.js --recursive",
-    "test-karma": "karma start karma.conf.js",
-    "test-istanbul": "istanbul cover test/*.js",
-    "test-nyc": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test/*.js"
+    "test": "mocha --compilers js:babel-core/register --require ./test/setup.js --recursive ./src/**/**/*.test.js",
+    "test-karma": "karma start karma.conf.js "
   },
   "bugs": {
     "url": "http://github.com/quark-ui/quark-ui/issues"
